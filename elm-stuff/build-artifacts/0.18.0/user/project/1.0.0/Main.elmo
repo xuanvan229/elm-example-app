@@ -11,7 +11,7 @@ var _user$project$Main$ResultofAwser = F2(
 	function (a, b) {
 		return {answer: a, imageUrl: b};
 	});
-var _user$project$Main$decodeGifUrl = A3(
+var _user$project$Main$decodeAnswer = A3(
 	_elm_lang$core$Json_Decode$map2,
 	_user$project$Main$ResultofAwser,
 	A2(_elm_lang$core$Json_Decode$field, 'answer', _elm_lang$core$Json_Decode$string),
@@ -24,7 +24,7 @@ var _user$project$Main$getRandomGif = function () {
 	return A2(
 		_elm_lang$http$Http$send,
 		_user$project$Main$NewGif,
-		A2(_elm_lang$http$Http$get, url, _user$project$Main$decodeGifUrl));
+		A2(_elm_lang$http$Http$get, url, _user$project$Main$decodeAnswer));
 }();
 var _user$project$Main$update = F2(
 	function (msg, model) {
@@ -49,57 +49,80 @@ var _user$project$Main$GetAnswer = {ctor: 'GetAnswer'};
 var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
-		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('container'),
+			_1: {ctor: '[]'}
+		},
 		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$input,
-				{ctor: '[]'},
-				{ctor: '[]'}),
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('form-input'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$input,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$placeholder('Put your question here'),
+							_1: {ctor: '[]'}
+						},
+						{ctor: '[]'}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$button,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$GetAnswer),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Get answer!'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}),
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$button,
+					_elm_lang$html$Html$div,
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$GetAnswer),
+						_0: _elm_lang$html$Html_Attributes$class('result'),
 						_1: {ctor: '[]'}
 					},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text('Get answer!'),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{ctor: '[]'},
-						{
+						_0: A2(
+							_elm_lang$html$Html$h2,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(model.resultofanswer.answer),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
 							ctor: '::',
 							_0: A2(
-								_elm_lang$html$Html$h2,
-								{ctor: '[]'},
+								_elm_lang$html$Html$img,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html$text(model.resultofanswer.answer),
+									_0: _elm_lang$html$Html_Attributes$src(model.resultofanswer.imageUrl),
 									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$img,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$src(model.resultofanswer.imageUrl),
-										_1: {ctor: '[]'}
-									},
-									{ctor: '[]'}),
-								_1: {ctor: '[]'}
-							}
-						}),
-					_1: {ctor: '[]'}
-				}
+								},
+								{ctor: '[]'}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
 			}
 		});
 };

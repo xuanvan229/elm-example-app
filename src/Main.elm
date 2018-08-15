@@ -87,10 +87,13 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-  div []
-    [ input [] []
-    , button [ onClick GetAnswer ] [ text "Get answer!" ]
-    , div [] [
+  div [ class "container" ]
+    [ 
+      div [class "form-input"] [
+        input [placeholder "Put your question here"] []
+      , button [ onClick GetAnswer ] [ text "Get answer!" ]
+      ]
+    , div [class "result"] [
        h2 [] [text model.resultofanswer.answer]
       , img [src model.resultofanswer.imageUrl] []
       ]
@@ -116,11 +119,11 @@ getRandomGif =
     url =
       "https://yesno.wtf/api/"
   in
-    Http.send NewGif (Http.get url decodeGifUrl)
+    Http.send NewGif (Http.get url decodeAnswer)
 
 
-decodeGifUrl : Decode.Decoder ResultofAwser
-decodeGifUrl =
+decodeAnswer : Decode.Decoder ResultofAwser
+decodeAnswer =
    Decode.map2 ResultofAwser
     (Decode.field "answer" Decode.string)
     (Decode.field "image" Decode.string)
