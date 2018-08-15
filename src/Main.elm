@@ -87,17 +87,19 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-  div [ class "container" ]
-    [ 
-      div [class "form-input"] [
-        input [placeholder "Put your question here"] []
-      , button [ onClick GetAnswer ] [ text "Get answer!" ]
+  div [id "main"] [
+    div [ class "container" ]
+      [ 
+        div [class "form-input"] [
+          input [placeholder "Put your question here"] []
+        , button [ onClick GetAnswer ] [ text "Get answer!" ]
+        ]
+      , div [class "result"] [
+         h2 [] [text model.resultofanswer.answer]
+        , img [src model.resultofanswer.imageUrl] []
+        ]
       ]
-    , div [class "result"] [
-       h2 [] [text model.resultofanswer.answer]
-      , img [src model.resultofanswer.imageUrl] []
-      ]
-    ]
+  ]
 
 
 
