@@ -4,6 +4,11 @@ var _user$project$Main$subscriptions = function (model) {
 var _user$project$Main$initAnswer = {answer: '', imageUrl: 'https://media.giphy.com/media/Cmr1OMJ2FN0B2/giphy.gif'};
 var _user$project$Main$initialModel = {resultofanswer: _user$project$Main$initAnswer};
 var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
+var _user$project$Main$check = _elm_lang$core$Native_Platform.outgoingPort(
+	'check',
+	function (v) {
+		return {answer: v.answer, imageUrl: v.imageUrl};
+	});
 var _user$project$Main$Model = function (a) {
 	return {resultofanswer: a};
 };
@@ -38,7 +43,7 @@ var _user$project$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{resultofanswer: _p0._0._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
+					_1: _user$project$Main$check(model.resultofanswer)
 				};
 			} else {
 				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};

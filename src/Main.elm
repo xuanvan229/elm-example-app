@@ -1,5 +1,6 @@
 -- Read more about this program in the official Elm guide:
 -- https://guide.elm-lang.org/architecture/effects/http.html
+port module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -58,6 +59,7 @@ type alias ResultofAwser =
 
 
 
+port check : ResultofAwser -> Cmd msg
 
 
 -- UPDATE
@@ -75,7 +77,7 @@ update msg model =
       (model, getRandomGif)
 
     NewGif (Ok newResult) ->
-      ({ model | resultofanswer = newResult}, Cmd.none)
+      ({ model | resultofanswer = newResult}, check model.resultofanswer)
 
     NewGif (Err _) ->
       (model, Cmd.none)
