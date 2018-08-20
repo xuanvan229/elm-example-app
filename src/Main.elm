@@ -27,22 +27,24 @@ init =
 -- MODEL
 
 type alias Model =
-  { 
+  {
      resultofanswer : ResultofAwser
+  ,  langnghe : String
   }
 
 
 
-initialModel: Model 
+initialModel: Model
 initialModel =
   {
    resultofanswer = initAnswer
+   ,langnghe = "chua co gi"
   }
 
 
 initAnswer : ResultofAwser
 
-initAnswer = 
+initAnswer =
   {
     answer =""
   , imageUrl ="https://media.giphy.com/media/Cmr1OMJ2FN0B2/giphy.gif"
@@ -67,6 +69,7 @@ port check : ResultofAwser -> Cmd msg
 
 type Msg
   = GetAnswer
+  | LangNghe String
   | NewGif (Result Http.Error ResultofAwser)
 
 
@@ -75,7 +78,8 @@ update msg model =
   case msg of
     GetAnswer ->
       (model, getRandomGif)
-
+    LangNghe bienlangnghe->
+      ({ model | langnghe = bienlangnghe }, Cmd.none)
     NewGif (Ok newResult) ->
       ({ model | resultofanswer = newResult}, check model.resultofanswer)
 
@@ -91,13 +95,14 @@ view : Model -> Html Msg
 view model =
   div [id "main"] [
     div [ class "container" ]
-      [ 
+      [
         div [class "form-input"] [
           input [placeholder "Put your question here"] []
         , button [ onClick GetAnswer ] [ text "Get answer!" ]
         ]
       , div [class "result"] [
-         h2 [] [text model.resultofanswer.answer]
+          h1 [] [ text model.langnghe ]
+        ,  h2 [] [text model.resultofanswer.answer]
         , img [src model.resultofanswer.imageUrl] []
         ]
       ]
@@ -108,9 +113,12 @@ view model =
 -- SUBSCRIPTIONS
 
 
+port langnghe : (String -> msg) -> Sub msg
+
+
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  Sub.none
+  langnghe LangNghe
 
 
 
