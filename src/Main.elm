@@ -7,11 +7,11 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
 import Json.Decode as Decode
+import Browser
 
 
-main : Program Never Model Msg
 main  =
-  Html.program
+  Browser.element
     { init = init
     , view = view
     , update = update
@@ -19,8 +19,8 @@ main  =
     }
 
 
-init : (Model, Cmd Msg)
-init =
+init : () -> (Model, Cmd Msg)
+init _ =
    (initialModel , Cmd.none)
 
 

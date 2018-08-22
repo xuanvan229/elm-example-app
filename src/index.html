@@ -5,15 +5,15 @@
   	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div></div>
+<div id="main"></div>
 </body>
   	<script type="text/javascript" src="elm.js"></script>
 	<script>
 
 		// Elm.Main.embed(document.querySelector("div"));
-
-		 	var app = Elm.Main.fullscreen();
-
+			var app = Elm.Main.init({ node: document.getElementById("main") });
+		 	// var app = Elm.Main.fullscreen();
+		 	console.log(app)
 		    app.ports.check.subscribe(function(word) {
 		        // var suggestions = spellCheck(word);
 		        console.log(word)
